@@ -9,7 +9,7 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name){
+function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
@@ -31,16 +31,27 @@ function startApp(name){
  * This function  then directs to other functions
  * 
  * @param  {string} text data typed by the user
+ * @param  {string} help data typed by the user
  * @returns {void}
  */
+
+help = `
+hello = to print hello!;
+quit = to exit program;
+exit = to exit program;
+ `;
+
 function onDataReceived(text) {
-  if (text === 'quit\n') {
+  if (text === 'quit\n' || text === 'exit\n') {
     quit();
   }
-  else if(text === 'hello\n'){
+  else if (text === 'hello\n') {
     hello();
+  } else if (text === 'help\n') {
+    console.log(help);
+    process.exit();
   }
-  else{
+  else {
     unknownCommand(text);
   }
 }
@@ -53,8 +64,8 @@ function onDataReceived(text) {
  * @param  {string} c the text received
  * @returns {void}
  */
-function unknownCommand(c){
-  console.log('unknown command: "'+c.trim()+'"')
+function unknownCommand(c) {
+  console.log('unknown command: "' + c.trim() + '"')
 }
 
 
@@ -63,7 +74,7 @@ function unknownCommand(c){
  *
  * @returns {void}
  */
-function hello(){
+function hello() {
   console.log('hello!')
 }
 
@@ -73,10 +84,10 @@ function hello(){
  *
  * @returns {void}
  */
-function quit(){
+function quit() {
   console.log('Quitting now, goodbye!')
   process.exit();
 }
 
 // The following line starts the application
-startApp("Jad Sarout")
+startApp("Obaida Alnakdali")
