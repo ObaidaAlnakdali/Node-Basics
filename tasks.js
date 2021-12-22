@@ -1,4 +1,5 @@
 
+var fs = require('fs');
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -16,13 +17,40 @@ function startApp(name) {
   console.log(`Welcome to ${name}'s application!`);
   console.log("--------------------");
 
-  // fs.readFile()
+  try {
+    listTask = fs.readFileSync("data.json");
+    tasks = JSON.parse(listTask.toString())
+    // console.log(JSON.parse(tasks.toString()));
+  } catch (error) {
+    console.error(`Got an error trying to read the file: ${error.message}`);
+  }
 }
 
-var tasks = [
-  { done:true  ,task: "buy" }, 
-  { done:false ,task: "reed book", }
-];
+/**
+ * Says hello
+ *
+ * 
+ */
+//  function load(bath) {
+//   if(bath == "defult"){
+//     try {
+//       tasks = fs.readFileSync("data.json");
+//       // console.log(JSON.parse(tasks.toString()));
+//     } catch (error) {
+//       console.error(`Got an error trying to read the file: ${error.message}`);
+//     }
+//   }else{
+//     try {
+//       tasks = fs.readFileSync(`${bath}`);
+//       // console.log(JSON.parse(tasks.toString()));
+//     } catch (error) {
+//       console.error(`Got an error trying to read the file: ${error.message}`);
+//     }
+//   }
+ 
+// }
+
+var tasks;
 
 /**
  * Decides what to do depending on the data that was received
@@ -150,10 +178,7 @@ function list() {
 function add(text) {
   if (text == "add") {
     console.log("you should add task not null");
-  } else {
-    task = text.substring(4);
-    tasks.push({ done:false ,task: task })
-    console.log(task);
+  } else {task
   }
 }
 
@@ -173,7 +198,7 @@ function edit(text) {
     }
     else if (isNaN(parseInt(taskNum[1]))) {
       taskNum.shift();
-      tasks[tasks.length - 1].task = taskNum.join(" ");
+      tasks[tasks.length - 1].task = taskNum.join("git  ");
     }
     else {
       for (i = 0; i < tasks.length; i++) {
@@ -258,6 +283,20 @@ function remove(text) {
       console.log(`ou removed ${taskNum} task`)
     }
   }
+}
+
+function quit(){
+  console.log("Quitting now, goodbye!");
+
+  try {
+    fs.writeFileSync("data.json", JSON.stringify(tasks, null, 5))
+    // console.log(JSON.parse(tasks.toString()));
+  } catch (error) {
+    console.error(`Got an error trying to write the file: ${error.message}`);
+  }
+
+  process.exit();
+  
 }
 
 // The following line starts the application
