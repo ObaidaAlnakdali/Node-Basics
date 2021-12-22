@@ -17,7 +17,10 @@ function startApp(name) {
   console.log("--------------------")
 }
 
-var tasks = [{ task: "buy" }, { task: "reed book", }];
+var tasks = [
+  { done:true  ,task: "buy" }, 
+  { done:false ,task: "reed book", }
+];
 
 /**
  * Decides what to do depending on the data that was received
@@ -101,6 +104,19 @@ function help() {
   console.table(helpList);
 }
 
+/**
+ * list tasks
+ *
+ *
+ */
+ function getDone(done) {
+  if (done == true) {
+    return "✓"
+  }else{
+    return " "
+  }
+}
+
 
 /**
  * list tasks
@@ -111,7 +127,9 @@ function list() {
   if (tasks.length == 0) {
     console.log("you dont have any task");
   } else {
-    console.table(tasks);
+    for(i=0; i < tasks.length; i++){
+      console.log(`${i+1}.[${getDone(tasks[i].done)}] ${tasks[i].task}`)
+    }
   }
 }
 
@@ -125,7 +143,7 @@ function add(text) {
     console.log("you should add task not null");
   } else {
     task = text.substring(4);
-    tasks.push({ task: task })
+    tasks.push({ done:false ,task: task })
     console.log(task);
   }
 }
