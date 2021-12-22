@@ -59,7 +59,7 @@ function onDataReceived(text) {
   }else if (text.split(" ").shift() === 'check') {
     check(text);
   }
-  else if (text.split(" ").shift() === 'uncheckgit') {
+  else if (text.split(" ").shift() === 'uncheck') {
     uncheck(text);
   }
   else {
@@ -99,8 +99,8 @@ function help() {
     { commaad: "help", argument: null, discription: "list command;" },
     { commaad: "add", argument: "task", discription: "add task in the list;" },
     { commaad: "edit", argument: "task", discription: "edit task in the list;" },
-    { commaad: "check", argument: "task num", discription: "to check done task in the list;" },
-    { commaad: "uncheck", argument: "task num", discription: "to uncheck done task in the list;" },
+    { commaad: "check", argument: "task num", discription: "to checked the sected tasl in list;" },
+    { commaad: "uncheck", argument: "task num", discription: "tto unchecked the sected tasl in list;" },
     { commaad: "remove", argument: null, discription: "remove the last task in the list;" },
     { commaad: "remove", argument: "number of task", discription: "remove the selected task in the list;" },
   ];
