@@ -17,6 +17,7 @@ function startApp(name) {
   console.log("--------------------")
 }
 
+var tasks = [];
 
 /**
  * Decides what to do depending on the data that was received
@@ -43,7 +44,9 @@ function onDataReceived(text) {
   else if (text.split(" ").shift() === 'hello') {
     hello(text);
   } else if (text === 'help') {
-    list(text);
+    help(text);
+  }else if (text === 'list') {
+    list();
   }
   else {
     unknownCommand(text);
@@ -88,19 +91,34 @@ function quit() {
  *
  * @returns {void}
  */
-function list() {
+function help() {
   let helpList = [
-    {commaad:"hello",argument:"-",discription:"to print hello!"},
+    {commaad:"hello",argument:"  ",discription:"to print hello!"},
     {commaad:"hello",argument:"text",discription:"to print hello + (text)!"},
-    {commaad:"quit",argument:"-",discription:"to exit program;"},
-    {commaad:"exit",argument:"-",discription:"to exit program;"},
-    {commaad:"help",argument:"-",discription:"list command;"},
+    {commaad:"quit",argument:"  ",discription:"to exit program;"},
+    {commaad:"exit",argument:"  ",discription:"to exit program;"},
+    {commaad:"help",argument:"  ",discription:"list command;"},
+    {commaad:"add",argument:"  ",discription:"list command;"},
 ];
 console.log(`
 ------------------------------------------
 ---------------Command--------------------
 ------------------------------------------\n`)
 console.table( helpList);
+}
+
+
+/**
+ * list tasks
+ *
+ * @returns {void}
+ */
+ function list() {
+   if(this.tasks == null){
+      console.log("you dont have any task");
+   }else{
+      console.table(this.tasks);
+   }
 }
 
 /**
