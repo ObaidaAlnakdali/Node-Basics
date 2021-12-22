@@ -97,12 +97,14 @@ function quit() {
  */
 function help() {
   let helpList = [
-    { commaad: "hello", argument: "  ", discription: "to print hello!" },
+    { commaad: "hello", argument: null, discription: "to print hello!" },
     { commaad: "hello", argument: "text", discription: "to print hello + (text)!" },
-    { commaad: "quit", argument: "  ", discription: "to exit program;" },
-    { commaad: "exit", argument: "  ", discription: "to exit program;" },
-    { commaad: "help", argument: "  ", discription: "list command;" },
+    { commaad: "quit", argument: null, discription: "to exit program;" },
+    { commaad: "exit", argument: null, discription: "to exit program;" },
+    { commaad: "help", argument: null, discription: "list command;" },
     { commaad: "add", argument: "task", discription: "add task in the list;" },
+    { commaad: "remove", argument: null, discription: "remove the last task in the list;" },
+    { commaad: "remove", argument: "number of task", discription: "remove the selected task in the list;" },
   ];
   console.log(`
 ------------------------------------------
