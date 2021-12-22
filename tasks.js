@@ -35,12 +35,6 @@ function startApp(name) {
  * @returns {void}
  */
 
-help = `
-hello = to print hello!;
-quit = to exit program;
-exit = to exit program;
- `;
-
 function onDataReceived(text) {
   if (text === 'quit\n' || text === 'exit\n') {
     quit();
@@ -48,8 +42,7 @@ function onDataReceived(text) {
   else if (text === 'hello\n') {
     hello();
   } else if (text === 'help\n') {
-    console.log(help);
-    process.exit();
+    help();
   }
   else {
     unknownCommand(text);
@@ -86,6 +79,15 @@ function hello() {
  */
 function quit() {
   console.log('Quitting now, goodbye!')
+  process.exit();
+}
+
+function help() {
+  console.log(`
+  hello = to print hello!;
+  quit = to exit program;
+  exit = to exit program;
+   `)
   process.exit();
 }
 
