@@ -17,7 +17,7 @@ function startApp(name) {
   console.log("--------------------")
 }
 
-var tasks = [];
+var tasks = [{task:"buy"},{task:"reed book",}];
 
 /**
  * Decides what to do depending on the data that was received
@@ -47,6 +47,9 @@ function onDataReceived(text) {
     help(text);
   }else if (text === 'list') {
     list();
+  }
+  else if (text.split(" ").shift() === 'add') {
+    add(text);
   }
   else {
     unknownCommand(text);
@@ -98,7 +101,7 @@ function help() {
     {commaad:"quit",argument:"  ",discription:"to exit program;"},
     {commaad:"exit",argument:"  ",discription:"to exit program;"},
     {commaad:"help",argument:"  ",discription:"list command;"},
-    {commaad:"add",argument:"  ",discription:"list command;"},
+    {commaad:"add",argument:"task",discription:"add task in the list;"},
 ];
 console.log(`
 ------------------------------------------
@@ -114,10 +117,10 @@ console.table( helpList);
  * @returns {void}
  */
  function list() {
-   if(this.tasks == null){
+   if(tasks == null){
       console.log("you dont have any task");
    }else{
-      console.table(this.tasks);
+      console.table(tasks);
    }
 }
 
@@ -126,8 +129,14 @@ console.table( helpList);
  *
  * @returns {void}
  */
-function add() {
-
+function add(text) {
+ if(text == "add"){
+  console.log("you shold add task not null");
+ }else{
+   task = text
+   text.split(" ").shift();
+   console.log(text);
+ }
 }
 
 /**
