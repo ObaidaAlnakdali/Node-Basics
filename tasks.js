@@ -56,6 +56,11 @@ function onDataReceived(text) {
     remove(text);
   } else if (text.split(" ").shift() === 'edit') {
     edit(text);
+  }else if (text.split(" ").shift() === 'check') {
+    check(text);
+  }
+  else if (text.split(" ").shift() === 'uncheckgit') {
+    uncheck(text);
   }
   else {
     unknownCommand(text);
@@ -94,6 +99,8 @@ function help() {
     { commaad: "help", argument: null, discription: "list command;" },
     { commaad: "add", argument: "task", discription: "add task in the list;" },
     { commaad: "edit", argument: "task", discription: "edit task in the list;" },
+    { commaad: "check", argument: "task num", discription: "to check done task in the list;" },
+    { commaad: "uncheck", argument: "task num", discription: "to uncheck done task in the list;" },
     { commaad: "remove", argument: null, discription: "remove the last task in the list;" },
     { commaad: "remove", argument: "number of task", discription: "remove the selected task in the list;" },
   ];
@@ -169,6 +176,55 @@ function edit(text) {
       for (i = 0; i < tasks.length; i++) {
         if (i == taskNum[1] - 1) {
           tasks[i].task = taskNum[2];
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * edit tasks
+ *
+ * @returns {void}
+ */
+function check(text) {
+  if (text == "check") {
+    console.log("you should check num task not null");
+  }
+  else {
+    taskNum = text.split(" ");
+    if (taskNum[1] < 1 || taskNum[1] > tasks.length) {
+      console.log(`the number task ${taskNum[1]} is not exist in list task`)
+    }
+    else {
+      for (i = 0; i < tasks.length; i++) {
+        if (i == taskNum[1] - 1) {
+          tasks[i].done = true;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * edit tasks
+ *
+ * @returns {void}
+ */
+ function uncheck(text) {
+  if (text == "uncheck") {
+    console.log("you should check num task not null");
+  }
+  else {
+    taskNum = text.split(" ");
+    if (taskNum[1] < 1 || taskNum[1] > tasks.length) {
+      console.log(`the number task ${taskNum[1]} is not exist in list task`)
+    }
+    else {
+      for (i = 0; i < tasks.length; i++) {
+        if (i == taskNum[1] - 1) {
+          tasks[i].done = false;
         }
       }
     }
