@@ -43,7 +43,7 @@ function onDataReceived(text) {
   else if (text.split(" ").shift() === 'hello') {
     hello(text);
   } else if (text === 'help') {
-    help(text);
+    list(text);
   }
   else {
     unknownCommand(text);
@@ -83,19 +83,42 @@ function quit() {
   process.exit();
 }
 
-function help() {
+/**
+ * print help list
+ *
+ * @returns {void}
+ */
+function list() {
   let helpList = [
     {commaad:"hello",argument:"-",discription:"to print hello!"},
     {commaad:"hello",argument:"text",discription:"to print hello + (text)!"},
     {commaad:"quit",argument:"-",discription:"to exit program;"},
     {commaad:"exit",argument:"-",discription:"to exit program;"},
     {commaad:"help",argument:"-",discription:"list command;"},
-]
+];
 console.log(`
 ------------------------------------------
 ---------------Command--------------------
 ------------------------------------------\n`)
-console.table(helpList);
+console.table( helpList);
+}
+
+/**
+ * add tasks
+ *
+ * @returns {void}
+ */
+function add() {
+
+}
+
+/**
+ * remove tasks
+ *
+ * @returns {void}
+ */
+function remove() {
+
 }
 
 // The following line starts the application
