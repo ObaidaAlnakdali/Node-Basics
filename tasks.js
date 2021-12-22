@@ -17,7 +17,7 @@ function startApp(name) {
   console.log("--------------------")
 }
 
-var tasks = [{task:"buy"},{task:"reed book",}];
+var tasks = [{ task: "buy" }, { task: "reed book", }];
 
 /**
  * Decides what to do depending on the data that was received
@@ -45,11 +45,12 @@ function onDataReceived(text) {
     hello(text);
   } else if (text === 'help') {
     help(text);
-  }else if (text === 'list') {
+  } else if (text === 'list') {
     list();
-  }
-  else if (text.split(" ").shift() === 'add') {
+  } else if (text.split(" ").shift() === 'add') {
     add(text);
+  } else if (text.split(" ").shift() === 'remove') {
+    remove(text);
   }
   else {
     unknownCommand(text);
@@ -96,18 +97,18 @@ function quit() {
  */
 function help() {
   let helpList = [
-    {commaad:"hello",argument:"  ",discription:"to print hello!"},
-    {commaad:"hello",argument:"text",discription:"to print hello + (text)!"},
-    {commaad:"quit",argument:"  ",discription:"to exit program;"},
-    {commaad:"exit",argument:"  ",discription:"to exit program;"},
-    {commaad:"help",argument:"  ",discription:"list command;"},
-    {commaad:"add",argument:"task",discription:"add task in the list;"},
-];
-console.log(`
+    { commaad: "hello", argument: "  ", discription: "to print hello!" },
+    { commaad: "hello", argument: "text", discription: "to print hello + (text)!" },
+    { commaad: "quit", argument: "  ", discription: "to exit program;" },
+    { commaad: "exit", argument: "  ", discription: "to exit program;" },
+    { commaad: "help", argument: "  ", discription: "list command;" },
+    { commaad: "add", argument: "task", discription: "add task in the list;" },
+  ];
+  console.log(`
 ------------------------------------------
 ---------------Command--------------------
 ------------------------------------------\n`)
-console.table( helpList);
+  console.table(helpList);
 }
 
 
@@ -116,12 +117,12 @@ console.table( helpList);
  *
  * @returns {void}
  */
- function list() {
-   if(tasks == null){
-      console.log("you dont have any task");
-   }else{
-      console.table(tasks);
-   }
+function list() {
+  if (tasks.length == 0) {
+    console.log("you dont have any task");
+  } else {
+    console.table(tasks);
+  }
 }
 
 /**
@@ -130,13 +131,13 @@ console.table( helpList);
  * @returns {void}
  */
 function add(text) {
- if(text == "add"){
-  console.log("you shold add task not null");
- }else{
-   task = text.substring(4);
-   tasks.push({task:task})
-   console.log(task);
- }
+  if (text == "add") {
+    console.log("you should add task not null");
+  } else {
+    task = text.substring(4);
+    tasks.push({ task: task })
+    console.log(task);
+  }
 }
 
 /**
@@ -144,8 +145,22 @@ function add(text) {
  *
  * @returns {void}
  */
-function remove() {
-
+function remove(text) {
+  if (text == "remove") {
+    tasks.pop()
+    console.log("you removed last task");
+  } else {
+    task = text.split(" ")[1];
+    taskNum = parseInt(task)
+    if (isNaN(taskNum)) {
+      console.log("ineter number of task want remove")
+    } else if (taskNum == 1) {
+      tasks.shift()
+      console.log("you removed first task");
+    } else {
+          tasks.splice(taskNum-1, 1);
+    }
+  }
 }
 
 // The following line starts the application
