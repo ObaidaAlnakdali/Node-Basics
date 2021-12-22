@@ -84,18 +84,18 @@ function quit() {
 }
 
 function help() {
-  console.log(`
-  ------------------------------------------
-  ---------------Command--------------------
-  ------------------------------------------
-
-  hello------------------to print hello!;
-  quit-------------------to exit program;
-  exit-------------------to exit program;
-  help-------------------list command;
-
-  ------------------------------------------
-   `)
+  let helpList = [
+    {commaad:"hello",argument:"-",discription:"to print hello!"},
+    {commaad:"hello",argument:"text",discription:"to print hello + (text)!"},
+    {commaad:"quit",argument:"-",discription:"to exit program;"},
+    {commaad:"exit",argument:"-",discription:"to exit program;"},
+    {commaad:"help",argument:"-",discription:"list command;"},
+]
+console.log(`
+------------------------------------------
+---------------Command--------------------
+------------------------------------------\n`)
+console.table(helpList);
 }
 
 // The following line starts the application
