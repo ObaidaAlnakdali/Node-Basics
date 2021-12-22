@@ -80,21 +80,6 @@ function hello(text) {
 }
 
 
-/**
- * Exits the application
- *
- * @returns {void}
- */
-function quit() {
-  console.log('Quitting now, goodbye!')
-  process.exit();
-}
-
-/**
- * print help list
- *
- * @returns {void}
- */
 function help() {
   let helpList = [
     { commaad: "hello", argument: null, discription: "to print hello!" },
@@ -151,16 +136,17 @@ function remove(text) {
   if (text == "remove") {
     tasks.pop()
     console.log("you removed last task");
-  } else {
-    task = text.split(" ")[1];
-    taskNum = parseInt(task)
+  } 
+  else {
+    taskNum = parseInt(text.split(" ")[1]);
     if (isNaN(taskNum)) {
       console.log("ineter number of task want remove")
-    } else if (taskNum == 1) {
-      tasks.shift()
-      console.log("you removed first task");
-    } else {
-          tasks.splice(taskNum-1, 1);
+    }else if(taskNum < 1 || taskNum > tasks.length) {
+      console.log(`the number task ${taskNum} is not exist in list task`)
+    }
+    else {
+      tasks.splice(taskNum - 1, 1);
+      console.log(`ou removed ${taskNum} task`)
     }
   }
 }
