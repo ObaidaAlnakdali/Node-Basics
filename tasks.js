@@ -133,9 +133,9 @@ function add(text) {
  if(text == "add"){
   console.log("you shold add task not null");
  }else{
-   task = text
-   text.split(" ").shift();
-   console.log(text);
+   task = text.substring(4);
+   tasks.push({task:task})
+   console.log(task);
  }
 }
 
