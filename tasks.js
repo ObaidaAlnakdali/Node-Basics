@@ -51,6 +51,8 @@ function onDataReceived(text) {
     add(text);
   } else if (text.split(" ").shift() === 'remove') {
     remove(text);
+  } else if (text.split(" ").shift() === 'edit') {
+    edit(text);
   }
   else {
     unknownCommand(text);
@@ -88,6 +90,7 @@ function help() {
     { commaad: "exit", argument: null, discription: "to exit program;" },
     { commaad: "help", argument: null, discription: "list command;" },
     { commaad: "add", argument: "task", discription: "add task in the list;" },
+    { commaad: "edit", argument: "task", discription: "edit task in the list;" },
     { commaad: "remove", argument: null, discription: "remove the last task in the list;" },
     { commaad: "remove", argument: "number of task", discription: "remove the selected task in the list;" },
   ];
@@ -128,6 +131,33 @@ function add(text) {
 }
 
 /**
+ * edit tasks
+ *
+ * @returns {void}
+ */
+function edit(text) {
+  if (text == "edit") {
+    console.log("you should edit task not null");
+  }
+  else {
+    taskNum = text.split(" ");
+    if (taskNum[1] < 1 || taskNum[1] > tasks.length) {
+      console.log(`the number task ${taskNum[1]} is not exist in list task`)
+    }
+    else if (taskNum.length == 2) {
+      tasks[tasks.length - 1].task = taskNum[1];
+    }
+    else {
+      for (i = 0; i < tasks.length; i++) {
+        if (i == taskNum[1] - 1) {
+          tasks[i].task = taskNum[2];
+        }
+      }
+    }
+  }
+}
+
+/**
  * remove tasks
  *
  * @returns {void}
@@ -136,12 +166,12 @@ function remove(text) {
   if (text == "remove") {
     tasks.pop()
     console.log("you removed last task");
-  } 
+  }
   else {
     taskNum = parseInt(text.split(" ")[1]);
     if (isNaN(taskNum)) {
       console.log("ineter number of task want remove")
-    }else if(taskNum < 1 || taskNum > tasks.length) {
+    } else if (taskNum < 1 || taskNum > tasks.length) {
       console.log(`the number task ${taskNum} is not exist in list task`)
     }
     else {
