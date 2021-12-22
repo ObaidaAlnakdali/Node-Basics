@@ -13,8 +13,10 @@ function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
-  console.log(`Welcome to ${name}'s application!`)
-  console.log("--------------------")
+  console.log(`Welcome to ${name}'s application!`);
+  console.log("--------------------");
+
+  // fs.readFile()
 }
 
 var tasks = [
@@ -169,13 +171,16 @@ function edit(text) {
     if (taskNum[1] < 1 || taskNum[1] > tasks.length) {
       console.log(`the number task ${taskNum[1]} is not exist in list task`)
     }
-    else if (taskNum.length == 2) {
-      tasks[tasks.length - 1].task = taskNum[1];
+    else if (isNaN(parseInt(taskNum[1]))) {
+      taskNum.shift();
+      tasks[tasks.length - 1].task = taskNum.join(" ");
     }
     else {
       for (i = 0; i < tasks.length; i++) {
         if (i == taskNum[1] - 1) {
-          tasks[i].task = taskNum[2];
+          taskNum.shift();
+          taskNum.shift();
+          tasks[i].task = taskNum.join(" ");
         }
       }
     }
