@@ -1,5 +1,9 @@
-
+const process = require('process');
 var fs = require('fs');
+
+var tasks=[];
+var bath;
+
 /**
  * Starts the application
  * This is the function that is run when the app starts
@@ -15,54 +19,26 @@ function startApp(name) {
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', onDataReceived);
   console.log(`Welcome to ${name}'s application!`);
-  console.log("--------------------");
+  console.log("--------------------\n");
+  console.log("--------write help to show command to use")
 
+  if (process.argv.length == 2) {
+    bath = "data.json"
+  } else {
+    bath = process.argv[2];
+  }
+  load(bath);
+}
+
+function load(bath) {
   try {
-    listTask = fs.readFileSync("data.json");
-    tasks = JSON.parse(listTask.toString())
-    // console.log(JSON.parse(tasks.toString()));
+    tasks = JSON.parse(fs.readFileSync(bath).toString());
   } catch (error) {
     console.error(`Got an error trying to read the file: ${error.message}`);
   }
 }
 
 /**
- * Says hello
- *
- * 
- */
-//  function load(bath) {
-//   if(bath == "defult"){
-//     try {
-//       tasks = fs.readFileSync("data.json");
-//       // console.log(JSON.parse(tasks.toString()));
-//     } catch (error) {
-//       console.error(`Got an error trying to read the file: ${error.message}`);
-//     }
-//   }else{
-//     try {
-//       tasks = fs.readFileSync(`${bath}`);
-//       // console.log(JSON.parse(tasks.toString()));
-//     } catch (error) {
-//       console.error(`Got an error trying to read the file: ${error.message}`);
-//     }
-//   }
- 
-// }
-
-var tasks;
-
-/**
- * Decides what to do depending on the data that was received
- * This function receives the input sent by the user.
- * 
- * For example, if the user entered 
- * ```
- * node tasks.js batata
- * ```
- * 
- * The text received would be "batata"
- * This function  then directs to other functions
  * 
  * @param  {string} text data typed by the user
  * @param  {string} help data typed by the user
@@ -86,7 +62,7 @@ function onDataReceived(text) {
     remove(text);
   } else if (text.split(" ").shift() === 'edit') {
     edit(text);
-  }else if (text.split(" ").shift() === 'check') {
+  } else if (text.split(" ").shift() === 'check') {
     check(text);
   }
   else if (text.split(" ").shift() === 'uncheck') {
@@ -96,7 +72,6 @@ function onDataReceived(text) {
     unknownCommand(text);
   }
 }
-
 
 /**
  * prints "unknown command"
@@ -109,7 +84,6 @@ function unknownCommand(c) {
   console.log('unknown command: "' + c.trim() + '"')
 }
 
-
 /**
  * Says hello
  *
@@ -118,7 +92,6 @@ function unknownCommand(c) {
 function hello(text) {
   console.log(text + '!')
 }
-
 
 function help() {
   let helpList = [
@@ -146,10 +119,10 @@ function help() {
  *
  *
  */
- function getDone(done) {
+function getDone(done) {
   if (done == true) {
     return "✓"
-  }else{
+  } else {
     return " "
   }
 }
@@ -161,11 +134,11 @@ function help() {
  * @returns {void}
  */
 function list() {
-  if (tasks.length == 0) {
+  if (tasks == undefined || tasks.length == 0) {
     console.log("you dont have any task");
   } else {
-    for(i=0; i < tasks.length; i++){
-      console.log(`${i+1}.[${getDone(tasks[i].done)}] ${tasks[i].task}`)
+    for (i = 0; i < tasks.length; i++) {
+      console.log(`${i + 1}.[${getDone(tasks[i].done)}] ${tasks[i].task}`)
     }
   }
 }
@@ -178,7 +151,9 @@ function list() {
 function add(text) {
   if (text == "add") {
     console.log("you should add task not null");
-  } else {task
+  } else {
+    task = text.substring(4);
+    tasks.push({ task: task })
   }
 }
 
@@ -198,7 +173,7 @@ function edit(text) {
     }
     else if (isNaN(parseInt(taskNum[1]))) {
       taskNum.shift();
-      tasks[tasks.length - 1].task = taskNum.join("git  ");
+      tasks[tasks.length - 1].task = taskNum.join(" ");
     }
     else {
       for (i = 0; i < tasks.length; i++) {
@@ -242,7 +217,7 @@ function check(text) {
  *
  * @returns {void}
  */
- function uncheck(text) {
+function uncheck(text) {
   if (text == "uncheck") {
     console.log("you should check num task not null");
   }
@@ -285,18 +260,18 @@ function remove(text) {
   }
 }
 
-function quit(){
+function quit() {
   console.log("Quitting now, goodbye!");
+  save(bath);
+  process.exit();
+}
 
+function save(bath) {
   try {
-    fs.writeFileSync("data.json", JSON.stringify(tasks, null, 5))
-    // console.log(JSON.parse(tasks.toString()));
+    fs.writeFileSync(bath, JSON.stringify(tasks, null, 5));
   } catch (error) {
     console.error(`Got an error trying to write the file: ${error.message}`);
   }
-
-  process.exit();
-  
 }
 
 // The following line starts the application
